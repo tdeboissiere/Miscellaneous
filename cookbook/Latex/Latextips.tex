@@ -1,0 +1,437 @@
+
+
+%///////////////////////
+%Center big pictures
+%//////////////////////
+
+			\begin{figure}[!ht] 
+			\centering
+			\noindent\makebox[\textwidth]{
+			\includegraphics[scale=.7]{image.png}
+			\caption{}
+			}
+			\label{}
+			\end{figure}
+			
+
+%///////////////////////
+%Change col size
+%///////////////////////
+
+
+%//header
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+%In the array
+\begin{table}[!ht]
+\begin{center}
+\begin{tabular}{|c|c|c|C{5cm}|}  //
+  \hline
+  Name &  Ldb cut* & Efid Eheat cut** & Additional cut***  \\
+  \hline
+  ID2  & (1.6,2,4) & (2.5,2) & Estimator-Eheat<3,\newline Ecol1-Ecol2<3 \\
+  \hline
+\end{tabular}
+\end{center}
+\caption{}
+}
+
+%//////////////////////
+%Skip a line
+%////////////////////
+~\\
+
+%////////////////////
+%Tilde
+%////////////////////
+$\widetilde{\lambda}$
+
+%////////////////////
+%Degrees
+%////////////////////
+$^\circ$
+
+%///////////////////
+%Calligraphy
+%///////////////////
+$\cal{X}$ 
+
+%///////////////////
+%Resize a table
+%///////////////////
+\usepackage{graphics}
+
+\begin{table}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{r|lll}
+\multicolumn{1}{r}{}
+& \multicolumn{1}{l}{Heading 1}
+& \multicolumn{1}{l}{Heading 2}
+& \multicolumn{1}{l}{Heading 3} \\ \cline{2-4}
+Row 1 & Cell 1,1 & Cell 1,2 & Cell 1,3 \\
+Row 2 & Cell 2,1 & Cell 2,2 & Cell 2,3
+\end{tabular}%
+}
+\end{table}
+
+
+%///////////////////
+%Change the title of the table of contents (default is Contents, it is changed to Summary)
+%///////////////////
+%
+\renewcommand*\contentsname{Summary}
+\begin{document}
+\maketitle
+\tableofcontents
+
+
+%///////////////////
+%Use French
+%///////////////////
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+
+
+%///////////////////
+%No blank page between chapters etc (remove this option for printing?) 
+%///////////////////
+\documentclass[11pt,a4paper,openany]{book}
+
+%///////////////////
+%Remove page numbering. Will need to be reset eg \pagenumbering{arabic} if ANY other page number is to be written
+%///////////////////
+\pagenumbering{gobble}
+
+%///////////////////
+%Graphic path
+%///////////////////
+\graphicspath{{Pictures/}} % Specifies the directory where pictures are stored
+
+
+%///////////////////
+%Include eps files
+%///////////////////
+\usepackage{epstopdf}
+
+and modify in Options Configure PdfLatex --> Add -shell-escape
+
+
+%///////////////////
+%Table of figures
+%///////////////////
+		\begin{figure}[!ht]
+		  \centering
+		  \subfloat{\label{fig:BAO1}\includegraphics[width=60mm]{Figures/Chap1/BAO1.eps}}
+		  \subfloat{\label{fig:BAO2}\includegraphics[width=60mm]{Figures/Chap1/BAO2.eps}}
+		  \\
+		  \subfloat{\label{fig:BAO3}\includegraphics[width=60mm]{Figures/Chap1/BAO3.eps}}
+		  \subfloat{\label{fig:BAO4}\includegraphics[width=60mm]{Figures/Chap1/BAO4.eps}}
+		  \\
+		  \subfloat{\label{fig:BAO5}\includegraphics[width=60mm]{Figures/Chap1/BAO5.eps}}
+		  \subfloat{\label{fig:BAO6}\includegraphics[width=60mm]{Figures/Chap1/BAO6.eps}}
+		  \\
+		\rule{35em}{0.5pt}
+		\label{fig:BAO}
+		\captionof{figure}{Roger. Figure from~\citep{SN_constraints_2014}}
+		\end{figure}
+
+
+%///////////////////
+%Insert some code
+%///////////////////
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+  
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{lstlisting}[language=C]
+
+for (int k=0; k<num_events; k++) 
+{      
+  //Gaussian noise on veto
+  EIA=u.Gaus(0,s_i);
+  EIC=u.Gaus(0,s_i);
+  //recoil_vec and Q_vec contain the Quenching 
+  //and recoil energy of simulated events
+  //Heat and collectrodes are reconstructed with Luke formula + noise
+  EC1=(1+Q_vec[k]*V_fid/3.)/(1+V_fid/3.)*recoil_vec[k]+u.Gaus(0,s_h);
+  EC2=(1+Q_vec[k]*V_fid/3.)/(1+V_fid/3.)*recoil_vec[k]+u.Gaus(0,s_h);       
+  EIB=u.Gaus(0,s_i)+recoil_vec[k]*Q_vec[k];
+  EID=u.Gaus(0,s_i)+recoil_vec[k]*Q_vec[k];
+  double EC = 0.5*(EC1+EC2);
+  double EI = 0.5*(EIA+EIB+EIC+EID);
+
+  //This is to implement the trigger threshold effect
+  double accept = 0.5*(1+TMath::Erf((EC-0.5)/(0.4*sqrt(2)/2.3548)));
+  //This it to implement the cuts outlined in Sec. 1
+  if (1 < EC && EC < 15 && 1<EI  && EI<15 && EIA < 5*s_i && EIC < 5*s_i u.Binomial(1,accept)==1) 
+  //The training WIMP tree is filled with the 6-tuple  
+  //(EIA, EIB, EIC, EID, EC1, EC2)
+  t_new->Fill();
+  
+}
+
+\end{lstlisting}
+
+
+%///////////////////
+%Citation havoc in a figure
+%///////////////////
+instead of 
+\caption[\citep{chap3:CAST_gay}},
+use
+\caption[]{\protect\citep{chap3:CAST_gay}}
+
+This is because it first starts to compile figures, then the main text (smthg like that)
+So without the trick, the citation order is messed up
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=0.8]
+  \pie[rotate=120,color={ RoyalBlue, Apricot, Dandelion, BurntOrange}]{63/ Dark Matter,10/Neutrinos,12/Atoms, 15/Photons}
+  \end{tikzpicture}}
+\end{subfigure}\hfill%
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=0.8]
+  \pie[rotate=120,color={Purple, Dandelion, RoyalBlue}]{68.3/ Dark Energy, 4.9/Ordinary Matter, 26.8/Dark Matter}
+  \end{tikzpicture}
+\end{subfigure}
+\hspace*{\fill}
+\caption{Left: Energy budget of the universe 380 000 years after Big Bang (recombination epoch). Right: Energy budget today.}
+\label{fig:test}
+\end{figure}
+
+
+%///////////////////
+%Pie chart with tikz
+%///////////////////
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgf-pie}
+\usepackage{listings}
+
+\def\angle{0}
+\def\radius{3}
+\def\cyclelist{{"orange","blue","red","green"}}
+
+
+\begin{figure}[!ht]
+    \begin{subfigure}[c]{0.5\textwidth}
+        %\centering
+\newcount\cyclecount \cyclecount=-1
+\newcount\ind \ind=-1
+  \begin{tikzpicture}[scale=0.6,nodes = {font=\sffamily}]
+    \foreach \percent/\name in {
+        68.3/Dark Matter,
+        10/Neutrinos,
+        15/Photons,
+        12/Atoms
+      } {
+        \ifx\percent\empty\else               % If \percent is empty, do nothing
+          \global\advance\cyclecount by 1     % Advance cyclecount
+          \global\advance\ind by 1            % Advance list index
+          \ifnum3<\cyclecount                 % If cyclecount is larger than list
+            \global\cyclecount=0              %   reset cyclecount and
+            \global\ind=0                     %   reset list index
+          \fi
+          \pgfmathparse{\cyclelist[\the\ind]} % Get color from cycle list
+          \edef\color{\pgfmathresult}         %   and store as \color
+          % Draw angle and set labels
+          \draw[fill={\color!50},draw={\color}] (0,0) -- (\angle:\radius)
+            arc (\angle:\angle+\percent*3.6:\radius) -- cycle;
+          \node at (\angle+0.5*\percent*3.6:0.7*\radius) {\percent\,\%};
+          \node[pin=\angle+0.5*\percent*3.6:\name]
+            at (\angle+0.5*\percent*3.6:\radius) {};
+          \pgfmathparse{\angle+\percent*3.6}  % Advance angle
+          \xdef\angle{\pgfmathresult}         %   and store in \angle
+        \fi
+      };
+  \end{tikzpicture}
+    \end{subfigure}\hspace{-3em}%
+    \begin{subfigure}[c]{0.5\textwidth}
+        %\centering
+\newcount\cyclecount \cyclecount=-1
+\newcount\ind \ind=-1
+  \begin{tikzpicture}[scale=0.6,nodes = {font=\sffamily}]
+    \foreach \percent/\name in {
+        68.3/Dark Energy,
+        26.8/Dark Matter,
+        4.9/Ordinary Matter
+      } {
+        \ifx\percent\empty\else               % If \percent is empty, do nothing
+          \global\advance\cyclecount by 1     % Advance cyclecount
+          \global\advance\ind by 1            % Advance list index
+          \ifnum3<\cyclecount                 % If cyclecount is larger than list
+            \global\cyclecount=0              %   reset cyclecount and
+            \global\ind=0                     %   reset list index
+          \fi
+          \pgfmathparse{\cyclelist[\the\ind]} % Get color from cycle list
+          \edef\color{\pgfmathresult}         %   and store as \color
+          % Draw angle and set labels
+          \draw[fill={\color!50},draw={\color}] (0,0) -- (\angle:\radius)
+            arc (\angle:\angle+\percent*3.6:\radius) -- cycle;
+          \node at (\angle+0.5*\percent*3.6:0.7*\radius) {\percent\,\%};
+          \node[pin=\angle+0.5*\percent*3.6:\name]
+            at (\angle+0.5*\percent*3.6:\radius) {};
+          \pgfmathparse{\angle+\percent*3.6}  % Advance angle
+          \xdef\angle{\pgfmathresult}         %   and store in \angle
+        \fi
+      };
+  \end{tikzpicture}
+    \end{subfigure}
+\rule{35em}{0.5pt}  
+\caption{Left: Energy budget of the universe 380 000 years after Big Bang (recombination epoch). Right: Energy budget today.}
+\label{fig:pie_chart}
+\end{figure}
+
+
+%///////////////////
+%Pie chart with tikz + pgf-pie
+%///////////////////
+
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+
+\usepackage{tikz}
+\usepackage{pgf-pie}
+\usepackage{listings}
+
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=0.8]
+  \pie[rotate=120,color={ RoyalBlue, Apricot, Dandelion, BurntOrange}]{63/ Dark Matter,10/Neutrinos,12/Atoms, 15/Photons}
+  \end{tikzpicture}}
+\end{subfigure}\hfill%
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \begin{tikzpicture}[scale=0.8]
+  \pie[rotate=120,color={Purple, Dandelion, RoyalBlue}]{68.3/ Dark Energy, 4.9/Ordinary Matter, 26.8/Dark Matter}
+  \end{tikzpicture}
+\end{subfigure}
+\hspace*{\fill}
+\caption{Left: Energy budget of the universe 380 000 years after Big Bang (recombination epoch). Right: Energy budget today.}
+\label{fig:test}
+\end{figure}
+
+%///////////////////
+%Line break in table
+///////////////////
+\begin{table}[!ht]
+\begin{center} 
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c|c|c|c|c|}
+  \hline
+  Features & EC1, EC2, EIA, EIB, EIC, EID\\
+  & HR, EFID-QER \\
+  \hline
+  Tree depth & 3\\
+  \hline
+  Number of boosting rounds & 150\\
+  \hline
+  Learning rate & 0.1\\
+  \hline
+\end{tabular}
+\end{center}
+\rule{35em}{0.5pt}
+\caption{BDT hyperparameters and feature selection.}
+\label{table:bdt_param} 
+\end{table}
+
+
+
+%///////////////////
+%Flow chart
+%///////////////////
+\begin{textblock*}{12cm}(0.5cm,-1cm)
+\scalebox{0.6}{
+      \begin{tikzpicture}[node distance=2.3cm]
+        \onslide<2->\node[block]                  (init){Choix $g_{A\gamma}^{\rm simu}$ et $\alpha^{\rm détecteur}$};
+        \onslide<3->\node[block, below of=init]   (nbrh){Simulation fond + signal};
+        \onslide<4->\node[block, below of=nbrh](ovgt){Construction de $D(\tilde{\lambda}|g_{A\gamma}^{\rm simu})$};
+        \onslide<5->\node[block, below of=ovgt]   (accp){Calcul de $I(g_{A\gamma}^{\rm simu})$};
+        % \node[block, below of=accp]   (incr){Calcul de $I(g_{A\gamma}^{\rm simu})$};       
+        \onslide<6->\node[decision, below=0.5cm of accp] (stcd){Stat suffisante ?};
+        \onslide<8->\node[block, right= 2cm of stcd]   (stop){Calcul de $I(g_{A\gamma}^{\rm simu}, 95\%)$};
+        \onslide<9->\node[decision, above = 7cm of stop]   (calc){\footnotesize$I(g_{A\gamma}^{\rm simu}, 95\%)$ $= I_{\rm vrai}$?};
+        \onslide<11->\node[block, right=2cm of calc]   (fin){$g_{A\gamma}^{\rm lim} = g_{A\gamma}^{\rm simu}$};
+        % invisible node helpful later
+        \node[left=1cm of accp,scale=0.05](inv){};
+
+        % second invisble
+        \node[above=4.32cm of calc,scale=0.05](inv2){};
+
+        \onslide<3->\path[line] (init) --          (nbrh);
+        \onslide<4->\path[line] (nbrh) --          (ovgt);
+        \onslide<5->\path[line] (ovgt) -- node[left]{oui}(accp);
+        \onslide<6->\path[line] (accp) --          (stcd);
+       \onslide<7->\path[-,draw] (stcd) -| node{} (inv.north);
+       \onslide<7->\path[line]{} (inv.north) |- node[above]{non} (nbrh);
+        \onslide<8->\path[line] (stcd) -- node[below]{oui}(stop);
+        \onslide<9->\path[line] (stop) -- (calc);
+        \onslide<10->\path[line] (calc) -- node[below]{non}(init);
+        \onslide<11->\path[line] (calc) -- node[below]{oui}(fin);
+       %
+       % \path[-,draw] (calc) -- (inv2);
+       % \path[line] (inv2) --  node[above]{non}(init);
+
+
+      \end{tikzpicture}%
+}      
+\end{textblock*}
+
+
+%///////////////////
+%Nice table
+%///////////////////
+\begin{center}
+\begin{tabular}{ | c | c | c |}
+\hline
+\thead{Production channel} & \thead{Détection channel} & \thead{Couplages} \\
+\hline
+\makecell{\textcolor{uibgreen}{\textbf{Production Primakoff}} \\\textcolor{uibgreen}{\textbf{dans le soleil}}} & \textcolor{uibgreen}{\textbf{Détection Primakoff}}  & \textcolor{uibgreen}{\textbf{$\bf g_{\bf A\bf\gamma}^4$}}  \\
+\hline
+\makecell{Production CBRD \\dans le soleil} & Détection axio-électrique & $g_{Ae}^4$\\
+\hline
+\makecell{Production $^{57}$Fe \\dans le soleil} & Détection axio-électrique & $g_{AN}^2\times g_{Ae}^2$\\
+\hline
+\makecell{Axion matière noire} & Détection axio-électrique & $g_{Ae}^2$\\
+\hline
+\end{tabular}
+\end{center}
