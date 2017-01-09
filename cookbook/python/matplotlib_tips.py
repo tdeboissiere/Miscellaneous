@@ -149,3 +149,77 @@ plt.ylim([-0.5, 2])
 plt.tick_params(axis='both', which='major', labelsize=15) 
 plt.tight_layout()
 plt.savefig("FID837_heat_sideband.png")
+
+'''
+Add arrow next to axis
+'''
+plt.figure(figsize=(20,20))
+plt.imshow()
+plt.xticks([])
+plt.yticks([])
+plt.ylabel("Varying categorical factor", fontsize=28, labelpad=60)
+
+plt.annotate('', xy=(-0.1, 0), xycoords='axes fraction', xytext=(-0.1, 1),
+             arrowprops=dict(arrowstyle="-|>", color='k', linewidth=4))
+plt.savefig("../../figures/varying_categorical.png")
+plt.clf()
+plt.close()
+
+'''
+Scatter plot of images
+'''
+
+from skimage.transform import resize
+
+
+def min_resize(img, size):
+    """
+    Resize an image so that it is size along the minimum spatial dimension.
+    """
+    w, h = map(float, img.shape[:2])
+    if min([w, h]) != size:
+        if w <= h:
+            img = resize(img, (int(round((h / w) * size)), int(size)))
+        else:
+            img = resize(img, (int(size), int(round((w / h) * size))))
+    return img
+
+
+def image_scatter(images, img_res, res=300, cval=1.):
+
+    # Load and rescale data
+
+    images = [min_resize(image, img_res) for image in images]
+    max_width = max([image.shape[0] for image in images])
+    max_height = max([image.shape[1] for image in images])
+
+    # f2d = np.load("../../data/processed/X_largevis_flatten_radio.npy")
+    f2d = np.load("../../data/processed/X_tsne_flatten_radio.npy")
+
+    xx = f2d[:, 0]
+    yy = f2d[:, 1]
+    x_min, x_max = xx.min(), xx.max()
+    y_min, y_max = yy.min(), yy.max()
+    # Fix the ratios
+    sx = (x_max - x_min)
+    sy = (y_max - y_min)
+    if sx > sy:
+        res_x = sx / float(sy) * res
+        res_y = res
+    else:
+        res_x = res
+        res_y = sy / float(sx) * res
+
+    canvas = np.ones((res_x + max_width, res_y + max_height, 3)) * cval
+    x_coords = np.linspace(x_min, x_max, res_x)
+    y_coords = np.linspace(y_min, y_max, res_y)
+    for x, y, image in zip(xx, yy, images):
+        w, h = image.shape[:2]
+        x_idx = np.argmin((x - x_coords)**2)
+        y_idx = np.argmin((y - y_coords)**2)
+        canvas[x_idx:x_idx + w, y_idx:y_idx + h] = image
+
+    plt.figure(figsize=(40, 40))
+    plt.imshow(canvas)
+    plt.savefig("/home/tmain/Pictures/tsne_scattplot.png")
+    plt.tight_layout()
