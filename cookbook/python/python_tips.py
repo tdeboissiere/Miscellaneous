@@ -434,3 +434,14 @@ with open('filename.pickle', 'wb') as handle:
 
 with open('filename.pickle', 'rb') as handle:
   b = pickle.load(handle)
+
+"""
+Get the output of a subprocess call
+"""
+for f in arr_extracted_files:
+    subprocess.call(shlex.split("wc -l %s" % f))
+    proc = subprocess.Popen(shlex.split("wc -l %s" % f), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = proc.communicate()
+    ll.append(out)
+plt.hist(ll, bins=100)
+plt.show()
