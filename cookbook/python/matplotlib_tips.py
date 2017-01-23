@@ -1,4 +1,9 @@
 '''
+Matplotlib 2.0 changes
+'''
+http://matplotlib.org/2.0.0/users/dflt_style_changes.html
+
+'''
 Plot a 2D matrix array
 '''
 
