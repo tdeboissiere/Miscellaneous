@@ -228,3 +228,11 @@ def image_scatter(images, img_res, res=300, cval=1.):
     plt.imshow(canvas)
     plt.savefig("/home/tmain/Pictures/tsne_scattplot.png")
     plt.tight_layout()
+    
+'''
+Same binning for histograms
+'''
+
+bins = np.histogram(np.ravel(y_pred), bins=40)[1]  # get the bin edges
+plt.hist(y_pred[y_true == 0][:, 1], bins=bins, alpha=0.5, label="False detection (left is better)")
+plt.hist(y_pred[y_true == 1][:, 1], bins=bins, alpha=0.5, label="Confirmed microsleep (right is better)")
