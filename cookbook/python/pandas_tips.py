@@ -12,3 +12,9 @@ Simple date indexing
 # assuming a time column ['2016-01-07', '2016-01-08' ..]
 dft = pd.to_datetime(df["time"])
 idx = dft < "2016-01-10" # will give correct selection
+
+'''
+Adding columns
+'''
+
+#faster to concatenate two dataframes than adding a column as in df["C"] = blabla
