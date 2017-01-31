@@ -25,3 +25,9 @@ Concatenating dataframe
 '''
 
 # Make sure indices are compatible, otherwise unexpected results
+
+'''
+pandas to dict
+'''
+g = df.set_index("bla").to_dict(orient="index")
+# will give a dict with keys the values of bla and values the other column values
