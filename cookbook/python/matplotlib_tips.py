@@ -38,6 +38,41 @@ ax0.set_title('Channel A spike')
 ax1.plot(np.arange(xmax),PulseB.Trace(),color="red")
 ax1.set_title('Channel B spike')
 
+
+'''
+Grouped subplots
+'''
+
+def groupedGridSpec(ncols, nrows):
+
+    list_gs = []
+    list_ax = []
+
+    size = 1. / (ncols + (ncols + 1) / 10.)
+    offset = size / 10.
+
+    lowers = [offset + i * (size + offset) for i in range(ncols + 1)]
+    uppers = [i * (size + offset) for i in range(1, ncols + 1)]
+
+    for c in range(ncols):
+
+        gs = gridspec.GridSpec(4, 2)
+        gs.update(left=lowers[c], right=uppers[c], wspace=0)
+        for r in range(nrows):
+            ax1 = plt.subplot(gs[r, 0])
+            ax1.set_xticks([])
+            ax1.set_yticks([])
+
+            ax2 = plt.subplot(gs[r, 1])
+            ax2.set_xticks([])
+            ax2.set_yticks([])
+
+            list_ax.append([ax1, ax2])
+
+        list_gs.append(gs)
+
+    return list_ax
+
 plt.subplots_adjust(hspace=0.3)
 
 '''
