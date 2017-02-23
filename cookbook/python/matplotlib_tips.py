@@ -271,3 +271,23 @@ Same binning for histograms
 bins = np.histogram(np.ravel(y_pred), bins=40)[1]  # get the bin edges
 plt.hist(y_pred[y_true == 0][:, 1], bins=bins, alpha=0.5, label="False detection (left is better)")
 plt.hist(y_pred[y_true == 1][:, 1], bins=bins, alpha=0.5, label="Confirmed microsleep (right is better)")
+
+
+'''
+Plot decoration
+'''
+
+def process_plot(xlabel, ylabel, fontsize, labelsize, save_dir, xlim=None, ylim=None):
+
+    plt.xlabel(xlabel, fontsize=fontsize, labelpad=20)
+    plt.ylabel(ylabel, fontsize=fontsize, labelpad=20)
+    plt.legend(fontsize=fontsize, loc="best")
+    plt.tick_params(axis='both', which='major', labelsize=labelsize)
+    plt.tick_params(axis='both', which='minor', labelsize=labelsize)
+    if xlim:
+        plt.xlim(xlim)
+    if ylim:
+        plt.ylim(ylim)
+    plt.savefig(save_dir)
+    plt.clf()
+    plt.close()
