@@ -68,7 +68,9 @@ with tf.Session(config=config) as sess:
 
     # warmup run
     sess.run([apply_gradient_op])
-    
+
+coord.request_stop()
+coord.join(threads)
     
 '''
 Update learning rate
