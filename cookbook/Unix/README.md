@@ -11,3 +11,7 @@
 ## Find files recursively with certain extension
 
     find . -type f -name '*.txt'
+
+## Wildcard on expr with parenthesis
+
+    ls *\(blabla\)*
