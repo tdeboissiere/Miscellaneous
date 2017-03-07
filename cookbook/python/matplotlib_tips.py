@@ -188,7 +188,7 @@ plt.xlim([0.5, 3])
 plt.ylim([-0.5, 2])
 plt.tick_params(axis='both', which='major', labelsize=15) 
 plt.tight_layout()
-plt.savefig("FID837_heat_sideband.png")
+plt.savefig("plotname.png")
 
 '''
 Add arrow next to axis
@@ -233,8 +233,7 @@ def image_scatter(images, img_res, res=300, cval=1.):
     max_width = max([image.shape[0] for image in images])
     max_height = max([image.shape[1] for image in images])
 
-    # f2d = np.load("../../data/processed/X_largevis_flatten_radio.npy")
-    f2d = np.load("../../data/processed/X_tsne_flatten_radio.npy")
+    f2d = np.load("../../data/processed/X_tsne.npy")
 
     xx = f2d[:, 0]
     yy = f2d[:, 1]
@@ -269,8 +268,8 @@ Same binning for histograms
 '''
 
 bins = np.histogram(np.ravel(y_pred), bins=40)[1]  # get the bin edges
-plt.hist(y_pred[y_true == 0][:, 1], bins=bins, alpha=0.5, label="False detection (left is better)")
-plt.hist(y_pred[y_true == 1][:, 1], bins=bins, alpha=0.5, label="Confirmed microsleep (right is better)")
+plt.hist(y_pred[y_true == 0][:, 1], bins=bins, alpha=0.5, label="bla")
+plt.hist(y_pred[y_true == 1][:, 1], bins=bins, alpha=0.5, label="bli")
 
 
 '''
