@@ -158,3 +158,10 @@ Use a header
 #comments ="" => no # at the beginning of header
 out_dir = script_utils.create_directory("./Eval_data/" + bolo_name + "/" + analysis_type + "/")
 np.savetxt(out_dir + bolo_name + "_" + analysis_type + "_fond.csv", arr, delimiter = ",", fmt = "%.5f", header = "EC1,EC2,EIA,EIB,EIC,EID,ENR,RUN,SN", comments = "")   
+
+'''
+array slicing
+'''
+
+arr[0:10]  # fast
+arr[[0, 1, 2, 3, 4, ...]]  # slow
