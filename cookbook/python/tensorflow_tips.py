@@ -79,3 +79,27 @@ lr = tf.Variable(FLAGS.learning_rate, name="learning_rate", trainable=False)
 lr_value = lr.eval(sess)
 sess.run(lr.assign(lr_value / 10.))
 updated_lr = True
+
+'''
+Profiling
+'''
+run_metadata = tf.RunMetadata()
+_, l, lr, predictions = sess.run(
+            [optimizer, loss, learning_rate, train_prediction],
+            feed_dict=feed_dict,
+            options=tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE),
+            run_metadata=run_metadata)
+
+After the step completes, the run_metadata should contain a StepStats protobuf with lots of timing information, grouped by tensorflow device. The CUPTI GPU tracing appears as some additional devices with names like /gpu:0/stream:56 and /gpu:0/memcpy
+
+Note: to get GPU tracing you will need to ensure that libcupti.so is on you LD_LIBRARY_PATH. It is usually found in /usr/local/cuda/extras/lib64.
+
+The simplest way to use this information is to load the stats into a 'Timeline' as follows:
+
+from tensorflow.python.client import timeline
+trace = timeline.Timeline(step_stats=run_metadata.step_stats)
+
+The Timeline class can then be used to emit a JSON trace file in the Chrome Tracing Format, as follows:
+
+trace_file = open('timeline.ctf.json', 'w')
+trace_file.write(trace.generate_chrome_trace_format())
