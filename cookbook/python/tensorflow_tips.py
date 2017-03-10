@@ -103,3 +103,12 @@ The Timeline class can then be used to emit a JSON trace file in the Chrome Trac
 
 trace_file = open('timeline.ctf.json', 'w')
 trace_file.write(trace.generate_chrome_trace_format())
+
+'''
+TFrecordwriter is slow
+'''
+
+replace protobuf
+
+pip install --upgrade \
+https://storage.googleapis.com/tensorflow/linux/cpu/protobuf-3.1.0-cp27-none-linux_x86_64.whl
