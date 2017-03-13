@@ -38,6 +38,17 @@ ax0.set_title('Channel A spike')
 ax1.plot(np.arange(xmax),PulseB.Trace(),color="red")
 ax1.set_title('Channel B spike')
 
+'''
+No white space when saving figure
+'''
+
+    plt.gca().xaxis.set_major_locator(mp.ticker.NullLocator())
+    plt.gca().yaxis.set_major_locator(mp.ticker.NullLocator())
+
+    plt.savefig(os.path.join(FLAGS.fig_dir, "current_batch_%s.png" % e), bbox_inches='tight', pad_inches=0)
+    plt.clf()
+    plt.close()
+    # whitout pad_inches=0, small white boundary
 
 '''
 Grouped subplots
