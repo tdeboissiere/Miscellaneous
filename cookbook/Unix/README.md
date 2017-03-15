@@ -71,4 +71,4 @@ sshfs -o delay_connect,reconnect,ServerAliveInterval=5,ServerAliveCountMax=3,all
 
 Unmount with:
 
-umount user@000.00.000.000:/ &> /dev/null
+`umount user@000.00.000.000:/ &> /dev/null`
