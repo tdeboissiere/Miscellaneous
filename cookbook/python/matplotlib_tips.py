@@ -301,3 +301,8 @@ def process_plot(xlabel, ylabel, fontsize, labelsize, save_dir, xlim=None, ylim=
     plt.savefig(save_dir)
     plt.clf()
     plt.close()
+
+'''
+Scatte rlegend size
+'''
+plt.legened(markerscale=XXX)
