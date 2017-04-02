@@ -59,3 +59,8 @@ Mount with:
 Unmount with:
 
     $ umount user@000.00.000.000:/ &> /dev/null
+
+
+#### See the alias
+
+    type `<aliascmd>`
