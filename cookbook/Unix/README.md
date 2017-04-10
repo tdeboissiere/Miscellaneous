@@ -64,3 +64,7 @@ Unmount with:
 #### See the alias
 
     type `<aliascmd>`
+
+### Cat to append
+
+    cat >> file.txt
