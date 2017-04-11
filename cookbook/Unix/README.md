@@ -68,3 +68,15 @@ Unmount with:
 ### Cat to append
 
     cat >> file.txt
+
+### ls with absolute path
+
+    readlink -f *.csv | cat > truc.txt
+
+### ls with absolute path
+
+    readlink -f *.csv | cat > truc.txt
+    
+### recursive print of when files were last accessed
+
+    stat --printf="%y %n\n" $(ls -tr $(find * -type f))
