@@ -80,3 +80,7 @@ Unmount with:
 ### recursive print of when files were last accessed
 
     stat --printf="%y %n\n" $(ls -tr $(find * -type f))
+
+### find files with a given string
+
+    grep -rnw '/path/to/somewhere/' -e "pattern"
