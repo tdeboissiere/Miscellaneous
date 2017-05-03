@@ -458,3 +458,10 @@ try:
                   raise Found
 except Found:
     print i, j, k 
+
+      
+"""
+subprocess
+"""
+
+subprocess.Popen() may be faster for some operations (like copy) than subprocess.call()
