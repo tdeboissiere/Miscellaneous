@@ -39,6 +39,10 @@ sudo apt-get instal openssh-server
 
     $ ssh-copy-id -i ~/.ssh/id_rsa.pub remote-host
 
+## Copy with progbar
+
+rsync -r --info=progress2 source dest
+
 Inspect
 
     .ssh/authorized_keys
