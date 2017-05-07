@@ -41,7 +41,7 @@ sudo apt-get instal openssh-server
 
 ## Copy with progbar
 
-rsync -r --info=progress2 source dest
+    rsync -r --info=progress2 source dest
 
 Inspect
 
