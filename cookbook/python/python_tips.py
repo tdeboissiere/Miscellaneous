@@ -465,3 +465,10 @@ subprocess
 """
 
 subprocess.Popen() may be faster for some operations (like copy) than subprocess.call()
+
+
+"""
+upper case
+"""
+
+string.title() to upper case the first letter of each word in string
