@@ -472,3 +472,9 @@ upper case
 """
 
 string.title() to upper case the first letter of each word in string
+
+"""
+Sort files by creation date
+"""
+
+list_HDF5.sort(key=lambda x: os.path.getmtime(x))
