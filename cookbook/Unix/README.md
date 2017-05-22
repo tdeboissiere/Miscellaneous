@@ -88,3 +88,8 @@ Unmount with:
 ### find files with a given string
 
     grep -rnw '/path/to/somewhere/' -e "pattern"
+
+### set permissions for mounted hdd
+
+    find /path/to/drive -type d -exec chmod 755 {} \;
+    find /path/to/drive -type f -exec chmod 644 {} \;
