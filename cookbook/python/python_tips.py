@@ -478,3 +478,9 @@ Sort files by creation date
 """
 
 list_HDF5.sort(key=lambda x: os.path.getmtime(x))
+
+"""
+Get file size in bytes
+"""
+import os
+os.stat(file).st_size
