@@ -340,3 +340,12 @@ def groupedGridSpec(ncols, nrows):
         list_gs.append(gs)
 
     return list_ax
+
+
+"""
+Tick label size
+"""
+
+import matplotlib as mpl
+label_size = 8
+mpl.rcParams['xtick.labelsize'] = label_size
