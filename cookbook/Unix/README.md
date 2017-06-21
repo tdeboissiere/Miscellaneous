@@ -104,3 +104,7 @@ sudo apt-get install xauth
 
 ## ssh with X forwarding
 ssh -X -v remote_machine
+
+# Remove .pyc files from current directory recursively
+
+    find . -name '*.pyc' -delete
