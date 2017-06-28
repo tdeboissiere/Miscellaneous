@@ -484,3 +484,10 @@ Get file size in bytes
 """
 import os
 os.stat(file).st_size
+
+
+"""
+Print option (signif digits)
+"""
+
+np.set_printoptions(precision=4)
