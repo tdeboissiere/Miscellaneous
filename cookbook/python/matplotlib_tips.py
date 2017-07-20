@@ -453,3 +453,12 @@ c = Circle((0,0), v.pupil_radius, edgecolor="C0", facecolor='C0', alpha=.2)
 ax.add_patch(c)
 pathpatch_2d_to_3d(c, z=0, normal=xxx)
 pathpatch_translate(c, np.array([x,y,z]))
+
+"""
+Set legend line width
+"""
+
+leg = plt.legend()
+# get the individual lines inside legend and set line width
+for line in leg.get_lines():
+    line.set_linewidth(4)
