@@ -349,3 +349,35 @@ Tick label size
 import matplotlib as mpl
 label_size = 8
 mpl.rcParams['xtick.labelsize'] = label_size
+
+or
+
+[tick.label.set_fontsize(6) for tick in ax.xaxis.get_major_ticks()]
+[tick.label.set_fontsize(6) for tick in ax.yaxis.get_major_ticks()]
+[tick.label.set_fontsize(6) for tick in ax.zaxis.get_major_ticks()]
+
+
+"""
+Avoid fading of scatter marker in 3D
+"""
+
+ax.scatter(x, y, z, depthshade=0)
+
+"""
+Adjust title y position
+"""
+
+ax.set_title("bla", y=1.2)
+
+"""
+Hollow marker in scatter
+"""
+
+ax.scatter(x, y, facecolors="none")
+
+"""
+Axis equal aspect + automatic data boundaries
+"""
+ax.set_aspect('equal', 'box')
+
+
