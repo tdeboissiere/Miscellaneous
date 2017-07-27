@@ -462,3 +462,20 @@ leg = plt.legend()
 # get the individual lines inside legend and set line width
 for line in leg.get_lines():
     line.set_linewidth(4)
+
+"""
+Add path effects
+"""
+
+ax.plot(x,
+        y,
+        linewidth=3,
+        path_effects=[pe.Stroke(linewidth=3.5, foreground='k'), pe.Normal()])
+
+"""
+Matplotlib scatter edgecolor and width
+"""
+ax.scatter(x, y,
+       s=50,
+       edgecolor="black",
+       linewidth=0.5)
