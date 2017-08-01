@@ -479,3 +479,15 @@ ax.scatter(x, y,
        s=50,
        edgecolor="black",
        linewidth=0.5)
+'''
+Create legend from custom artist/label lists
+'''
+l_pred = plt.Line2D((0,1),(0,0), color='C0', linewidth=3)
+l_LM = plt.Line2D((0,1),(0,0), color='C2', linewidth=3)
+l_gt = plt.Line2D((0,1),(0,0), color='C1', linewidth=3)
+
+
+bbox_to_anchor = (2.5, 1.6)
+list_ax[0].legend([l_pred, l_LM, l_gt], ['NN prediction', "LM prediction", 'Ground truth'],
+                  fontsize=18,
+                  bbox_to_anchor=bbox_to_anchor)
