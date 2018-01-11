@@ -491,3 +491,71 @@ bbox_to_anchor = (2.5, 1.6)
 list_ax[0].legend([l_pred, l_LM, l_gt], ['NN prediction', "LM prediction", 'Ground truth'],
                   fontsize=18,
                   bbox_to_anchor=bbox_to_anchor)
+
+
+'''
+Create 3D scatter plot with 2D planes
+'''
+
+fig = plt.figure()
+plt.suptitle(title, y=0.95, fontsize=14)
+ax = fig.add_subplot(111, projection='3d')
+
+# X, Y, Z = np.arrays
+
+ax.scatter(X,
+           Y,
+           Z,
+           color="gray",
+           alpha=0.3)
+
+# Show the plane found by PCA
+# Plane equation is n[0]*x + n[1]*y + n[2]*z + cst = 0
+# Where n is a normal vector to the plane
+# The plane is expected to roughly pass through the origin, hence
+# we set cst = 0
+
+# We compute the normal vector by taking the cross product of the 2 first pca components
+u = pca.components_[0]
+v = pca.components_[1]
+
+n = np.cross(u, v)
+
+# We can then build the surface corresponding to the plane
+X = np.linspace(-0.3, 0.3, 10)
+Y = np.linspace(-0.3, 0.3, 10)
+X, Y = np.meshgrid(X, Y)
+
+Z = - (n[0] * X + n[1] * Y) / n[2]
+
+ax.plot_surface(X, Y, Z, alpha=0.3, color="C0")
+# Patch to plot legend
+patch_PCA = mpatches.Patch(color='C0', alpha=0.3, label="Plane found by PCA")
+
+# Compute rotation matrix
+pitch, yaw, roll = df[["pitch_deg_truth", "yaw_deg_truth", "roll_deg_truth"]].values[0]
+pitch, yaw, roll = np.deg2rad(pitch), np.deg2rad(yaw), np.deg2rad(roll)
+Rx = np.array([[1, 0, 0],
+               [0, np.cos(pitch), -np.sin(pitch)],
+               [0, np.sin(pitch), np.cos(pitch)]])
+Ry = np.array([[np.cos(yaw),0, np.sin(yaw)],
+               [0, 1, 0],
+               [-np.sin(yaw), 0, np.cos(yaw)]])
+Rz = np.array([[np.cos(roll), -np.sin(roll), 0],
+               [np.sin(roll), np.cos(roll), 0],
+               [0, 0, 1]])
+
+wRa = (Ry @ Rx @ Rz).T
+nplane = np.dot(wRa, np.array([0, 1, 0]).reshape(3, 1))
+
+# We can then build the surface correpsonding to the plane
+X = np.linspace(-0.3, 0.3, 10)
+Y = np.linspace(-0.3, 0.3, 10)
+X, Y = np.meshgrid(X, Y)
+
+Z = - (nplane[0] * X + nplane[1] * Y) / nplane[2]
+
+ax.plot_surface(X, Y, Z, alpha=0.3, color="C3")
+patch_Truth = mpatches.Patch(color='C3', alpha=0.3, label="Truth plane")
+
+blue_line = mlines.Line2D([], [], color='C0', label='Line patch')
