@@ -559,3 +559,75 @@ ax.plot_surface(X, Y, Z, alpha=0.3, color="C3")
 patch_Truth = mpatches.Patch(color='C3', alpha=0.3, label="Truth plane")
 
 blue_line = mlines.Line2D([], [], color='C0', label='Line patch')
+
+'''
+Reverse color map
+'''
+def reverse_colour_map(cm, name="reversed_cm"):
+    reverse = []
+    k = []
+    for key in cm._segmentdata:
+        k.append(key)
+        channel = cm._segmentdata[key]
+        data = []
+        for t in channel:
+            data.append((1 - t[0],t[2],t[1]))
+        reverse.append(sorted(data))
+    linearl = dict(zip(k,reverse))
+    reversed_cm = matplotlib.colors.LinearSegmentedColormap(name, linearl)
+    return reversed_cm
+
+'''
+2D scatter
+'''
+def hexbin_scatter(datasets, d_cmap, with_points=False):
+
+    # Check we have only one dataset
+    assert len(datasets.keys()) == 1
+    dataset_name = list(datasets.keys())[0]
+    gaze_by_point = datasets[dataset_name]
+
+    # Initialize hexbin parameters
+    gridsize = None
+    num_hexagones = 30
+
+    # HexBin scatter
+    for idx, pt in enumerate(gaze_by_point.keys()):
+
+        measures = np.array
+
+        xmin, xmax = measures[:, 0].min(), measures[:, 0].max()
+        ymin, ymax = measures[:, 1].min(), measures[:, 1].max()
+
+        # gridsize specifiew how many hexagons will be plotted
+        # logic below makes sure that for each pt, we have approximately similar size hexagons
+        if gridsize is None:
+            grid_width = (xmax - xmin) / num_hexagones
+            x_grid_size = num_hexagones
+            y_grid_size = int((ymax - ymin) / grid_width)
+            gridsize = (x_grid_size, y_grid_size)
+        else:
+            gridsize = int((xmax - xmin) / grid_width), int((ymax - ymin) / grid_width)
+
+        # mincnt makes sure that bins without data are plotted in white
+        plt.hexbin(measures[:, 0], measures[:, 1],
+                   gridsize=gridsize, cmap=d_cmap[pt],
+                   linewidths=0.1, mincnt=1, norm=LogNorm())
+
+
+
+def hist2d_scatter(datasets, d_cmap, with_points=False):
+
+    # Check we have only one dataset
+    assert len(datasets.keys()) == 1
+    dataset_name = list(datasets.keys())[0]
+    gaze_by_point = datasets[dataset_name]
+
+    # Same binning for all 2D hist
+    bins_x = np.arange(-1.5, 1, step=2.5 / 200)
+    bins_y = np.arange(-0.5, 0.5, step=1. / 200)
+
+    # Hist 2D scatter
+    plt.hist2d(measures[:, 0], measures[:, 1], bins=[bins_x, bins_y], cmap=d_cmap[pt], norm=LogNorm())
+
+
