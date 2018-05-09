@@ -108,3 +108,16 @@ ssh -X -v remote_machine
 # Remove .pyc files from current directory recursively
 
     find . -name '*.pyc' -delete
+
+
+# sshfs on say AWS
+
+    sudo sshfs {username}@{remote-address}:/remote/path  /mnt/local/existing/path -o IdentityFile=/local/path/to/pem/file -o allow_other
+
+# Computing audio length in seconds (requires sox and bc)
+
+    find . -name '*.wav' | xargs soxi -D | paste -sd+ | bc
+
+- Find looks for the file
+- xargs + soxi computes length in second for each file
+- paste -sd+ | bc computes the sum
