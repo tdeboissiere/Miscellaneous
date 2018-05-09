@@ -96,14 +96,16 @@ Unmount with:
 
 # X forwarding
 
-On local machine, set X11 Forwarding yes must specified in ~/.ssh/config.
-On remote machine, set X11 Forwarding yes must specified in /etc/ssh/sshd_config.
+    On local machine, set X11 Forwarding yes must specified in ~/.ssh/config.
+    On remote machine, set X11 Forwarding yes must specified in /etc/ssh/sshd_config.
 
 ## Install xauth
-sudo apt-get install xauth
+    
+    sudo apt-get install xauth
 
 ## ssh with X forwarding
-ssh -X -v remote_machine
+
+    ssh -X -v remote_machine
 
 # Remove .pyc files from current directory recursively
 
