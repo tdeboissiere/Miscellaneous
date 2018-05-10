@@ -123,3 +123,16 @@ Unmount with:
 - Find looks for the file
 - xargs + soxi computes length in second for each file
 - paste -sd+ | bc computes the sum
+
+# Looping in bash
+
+    declare -a list_N=("5"  "10"  "20"  "32"  "50"  "64"  "100"  "128"  "200"  "256"  "500"  "512"  "1024")
+    declare -a list_repeat=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+
+    for N in "${list_N[@]}"
+    do
+        for repeat in "${list_repeat[@]}"
+        do
+            echo $N
+        done
+    done
